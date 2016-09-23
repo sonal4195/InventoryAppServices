@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="609371eb438a4596a607ae5701dbb361" Name="Diagram1">
+        <EntityTypeShape EntityType="InventoryControlManagementModel.Asset" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryControlManagementModel.AssetType" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryControlManagementModel.BUs" Width="1.5" PointX="5.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryControlManagementModel.Role" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryControlManagementModel.TicketCategory" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryControlManagementModel.Ticket" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryControlManagementModel.TicketStatu" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryControlManagementModel.UserAsset" Width="1.5" PointX="8.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryControlManagementModel.UserProfile" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <AssociationConnector Association="InventoryControlManagementModel.fk6" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryControlManagementModel.fk8" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryControlManagementModel.fk9" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryControlManagementModel.fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryControlManagementModel.fk5" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryControlManagementModel.fk4" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryControlManagementModel.fk7" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryControlManagementModel.fk10" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InventoryControlManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Asset">
+    <Key>
+      <PropertyRef Name="AssetID" />
+    </Key>
+    <Property Name="AssetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AssetTypeID" Type="Int32" Nullable="false" />
+    <Property Name="BUID" Type="Int32" Nullable="false" />
+    <Property Name="SerialNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Warranty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ram" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Processor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfPurchase" Type="DateTime" Precision="0" />
+    <Property Name="ServiceTag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tickets" Relationship="Self.fk6" FromRole="Assets" ToRole="Tickets" />
+    <NavigationProperty Name="AssetType" Relationship="Self.fk8" FromRole="Assets" ToRole="AssetTypes" />
+    <NavigationProperty Name="UserAssets" Relationship="Self.fk9" FromRole="Assets" ToRole="UserAssets" />
+  </EntityType>
+  <EntityType Name="AssetType">
+    <Key>
+      <PropertyRef Name="AssetTypeID" />
+    </Key>
+    <Property Name="AssetTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AssetTypeDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Assets" Relationship="Self.fk8" FromRole="AssetTypes" ToRole="Assets" />
+  </EntityType>
+  <EntityType Name="BUs">
+    <Key>
+      <PropertyRef Name="BUID" />
+    </Key>
+    <Property Name="BUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BUName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="UserProfiles" Relationship="Self.fk1" FromRole="Roles" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="TicketCategory">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Tickets" Relationship="Self.fk5" FromRole="TicketCategory" ToRole="Tickets" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="TicketID" />
+    </Key>
+    <Property Name="TicketID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="AssetID" Type="Int32" />
+    <Property Name="Message" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StatusID" Type="Int32" Nullable="false" />
+    <Property Name="DateOfCreation" Type="DateTime" Precision="3" />
+    <Property Name="DateOfModification" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Asset" Relationship="Self.fk6" FromRole="Tickets" ToRole="Assets" />
+    <NavigationProperty Name="TicketCategory" Relationship="Self.fk5" FromRole="Tickets" ToRole="TicketCategory" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.fk4" FromRole="Tickets" ToRole="UserProfile" />
+    <NavigationProperty Name="TicketStatu" Relationship="Self.fk7" FromRole="Tickets" ToRole="TicketStatus" />
+  </EntityType>
+  <EntityType Name="TicketStatu">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Tickets" Relationship="Self.fk7" FromRole="TicketStatus" ToRole="Tickets" />
+  </EntityType>
+  <EntityType Name="UserAsset">
+    <Key>
+      <PropertyRef Name="UserAssetID" />
+    </Key>
+    <Property Name="UserAssetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AssetID" Type="Int32" />
+    <NavigationProperty Name="Asset" Relationship="Self.fk9" FromRole="UserAssets" ToRole="Assets" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.fk10" FromRole="UserAssets" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="EmailID" />
+    </Key>
+    <Property Name="EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="Self.fk1" FromRole="UserProfile" ToRole="Roles" />
+    <NavigationProperty Name="Tickets" Relationship="Self.fk4" FromRole="UserProfile" ToRole="Tickets" />
+    <NavigationProperty Name="UserAssets" Relationship="Self.fk10" FromRole="UserProfile" ToRole="UserAssets" />
+  </EntityType>
+  <Association Name="fk6">
+    <End Role="Assets" Type="Self.Asset" Multiplicity="0..1" />
+    <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Assets">
+        <PropertyRef Name="AssetID" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="AssetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk8">
+    <End Role="AssetTypes" Type="Self.AssetType" Multiplicity="1" />
+    <End Role="Assets" Type="Self.Asset" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssetTypes">
+        <PropertyRef Name="AssetTypeID" />
+      </Principal>
+      <Dependent Role="Assets">
+        <PropertyRef Name="AssetTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk9">
+    <End Role="Assets" Type="Self.Asset" Multiplicity="0..1" />
+    <End Role="UserAssets" Type="Self.UserAsset" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Assets">
+        <PropertyRef Name="AssetID" />
+      </Principal>
+      <Dependent Role="UserAssets">
+        <PropertyRef Name="AssetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1">
+    <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk5">
+    <End Role="TicketCategory" Type="Self.TicketCategory" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TicketCategory">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk4">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="EmailID" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="EmailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk7">
+    <End Role="TicketStatus" Type="Self.TicketStatu" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TicketStatus">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="StatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk10">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="UserAssets" Type="Self.UserAsset" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="EmailID" />
+      </Principal>
+      <Dependent Role="UserAssets">
+        <PropertyRef Name="EmailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InventoryControlManagementEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Assets" EntityType="Self.Asset" />
+    <EntitySet Name="AssetTypes" EntityType="Self.AssetType" />
+    <EntitySet Name="Buses" EntityType="Self.BUs" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="TicketCategories" EntityType="Self.TicketCategory" />
+    <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+    <EntitySet Name="TicketStatus" EntityType="Self.TicketStatu" />
+    <EntitySet Name="UserAssets" EntityType="Self.UserAsset" />
+    <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
+    <AssociationSet Name="fk6" Association="Self.fk6">
+      <End Role="Assets" EntitySet="Assets" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="fk8" Association="Self.fk8">
+      <End Role="AssetTypes" EntitySet="AssetTypes" />
+      <End Role="Assets" EntitySet="Assets" />
+    </AssociationSet>
+    <AssociationSet Name="fk9" Association="Self.fk9">
+      <End Role="Assets" EntitySet="Assets" />
+      <End Role="UserAssets" EntitySet="UserAssets" />
+    </AssociationSet>
+    <AssociationSet Name="fk1" Association="Self.fk1">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+    </AssociationSet>
+    <AssociationSet Name="fk5" Association="Self.fk5">
+      <End Role="TicketCategory" EntitySet="TicketCategories" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="fk4" Association="Self.fk4">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="fk7" Association="Self.fk7">
+      <End Role="TicketStatus" EntitySet="TicketStatus" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="fk10" Association="Self.fk10">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="UserAssets" EntitySet="UserAssets" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
